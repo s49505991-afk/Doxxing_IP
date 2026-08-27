@@ -2,12 +2,12 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>System Status</title>
+  <title>Terminal Access</title>
   <style>
     body {
-      background-color: black;
-      color: #00ff00;
-      font-family: 'Courier New', Courier, monospace;
+      background-color: #000;
+      color: #0f0;
+      font-family: monospace;
       margin: 0;
       overflow: hidden;
     }
@@ -17,45 +17,51 @@
   </style>
 </head>
 <body>
-  <canvas id="matrix"></canvas>
+  <canvas id="canvas"></canvas>
 
   <script>
-    const canvas = document.getElementById('matrix');
+    const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%';
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
+    // Caracteres aleatorios, números y símbolos
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;:,.<>?/░▒▓█';
+    const fontSize = 10; // Tamaño de letra muy pequeño para que quepan millones de caracteres
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      // Fondo negro semi-transparente para dejar rastro
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#0f0';
       ctx.font = fontSize + 'px monospace';
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        
+        // Alterna colores aleatorios (rojo brillante y verde)
+        ctx.fillStyle = Math.random() > 0.8 ? '#ff0000' : '#00ff00';
+        
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
           drops[i] = 0;
         }
-        drops[i]++;
+        
+        // Avance ultrarrápido por columna
+        drops[i] += Math.floor(Math.random() * 3) + 2;
       }
     }
 
-    setInterval(draw, 33);
-
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
+    // Intervalo de actualización superrápido (10 milisegundos)
+    setInterval(draw, 10);
   </script>
 </body>
 </html>
-
