@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISTEMA COMPROMETIDO</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .warning {
+            color: red;
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .console {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        .prank-reveal {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #111;
+            border: 2px solid yellow;
+            color: yellow;
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="warning">⚠️ OBJETIVO LOCALIZADO ⚠️</div>
+    
+    <div class="console" id="output"></div>
+
+    <div class="prank-reveal" id="reveal">
+   
+    </div>
+
+    <script>
+        const targetName = "WENDY";
+        
+        // Datos totalmente inventados para la broma
+        const fakeLogs = [
+            "[+] Iniciando protocolo de rastreo...",
+            "[+] Escaneando puertos locales...",
+            `[!] OBJETIVO ENCONTRADO: ${targetName}`,
+            "[+] Extrayendo IP pública: 192.168.fake.666",
+            "[+] Ubicación estimada: Frente a la pantalla",
+            "[+] Descargando fotos de la galería... [OK]",
+            "[+] Leyendo chats de WhatsApp... [OK]",
+            "[+] Nivel de pánico detectado: 99%",
+            "==========================================",
+            ` STATUS: ${targetName} HA SIDO OFICIALMENTE DOXEADA (FALSO) `,
+            "=========================================="
+        ];
+
+        let index = 0;
+        const outputDiv = document.getElementById("output");
+        const revealDiv = document.getElementById("reveal");
+
+        function typeWriter() {
+            if (index < fakeLogs.length) {
+                outputDiv.innerHTML += fakeLogs[index] + "\n";
+                index++;
+                setTimeout(typeWriter, 800); // Velocidad entre líneas
+            } else {
+                // Muestra el mensaje final de broma después de 2 segundos
+                setTimeout(() => {
+                    revealDiv.style.display = "block";
+                }, 1500);
+            }
+        }
+
+        // Iniciar simulación
+        typeWriter();
+    </script>
+</body>
+</html>
+
