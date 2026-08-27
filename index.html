@@ -2,17 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Terminal Access</title>
+  <title>CRITICAL_OVERLOAD</title>
   <style>
     body {
       background-color: #000;
-      color: #0f0;
+      color: #0ff;
       font-family: monospace;
       margin: 0;
       overflow: hidden;
     }
     canvas {
       display: block;
+      width: 100vw;
+      height: 100vh;
     }
   </style>
 </head>
@@ -23,45 +25,31 @@
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    // Caracteres aleatorios, números y símbolos
-    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;:,.<>?/░▒▓█';
-    const fontSize = 10; // Tamaño de letra muy pequeño para que quepan millones de caracteres
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = Array(columns).fill(1);
+    const chars = 'te amo';
+    const fontSize = 10;
+    const cols = Math.floor(canvas.width / fontSize);
+    const rows = Math.floor(canvas.height / fontSize);
 
-    function draw() {
-      // Fondo negro semi-transparente para dejar rastro
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.font = fontSize + 'px monospace';
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars.charAt(Math.floor(Math.random() * chars.length));
-        
-        // Alterna colores aleatorios (rojo brillante y verde)
-        ctx.fillStyle = Math.random() > 0.8 ? '#ff0000' : '#00ff00';
-        
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
-          drops[i] = 0;
+    function overload() {
+      // Bucle masivo por fotograma para saturar el hilo de ejecución
+      for (let j = 0; j < 50; j++) {
+        for (let i = 0; i < 500; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          const x = Math.floor(Math.random() * cols) * fontSize;
+          const y = Math.floor(Math.random() * rows) * fontSize;
+          
+          ctx.fillStyle = Math.random() > 0.5 ? '#ff0000' : (Math.random() > 0.5 ? '#00ff00' : '#ffffff');
+          ctx.font = fontSize + 'px monospace';
+          ctx.fillText(text, x, y);
         }
-        
-        // Avance ultrarrápido por columna
-        drops[i] += Math.floor(Math.random() * 3) + 2;
       }
+      requestAnimationFrame(overload);
     }
 
-    // Intervalo de actualización superrápido (10 milisegundos)
-    setInterval(draw, 10);
+    requestAnimationFrame(overload);
   </script>
 </body>
 </html>
