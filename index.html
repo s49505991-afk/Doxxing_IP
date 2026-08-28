@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Proveedor | Recargas Free Fire al Mayor</title>
+    <style>
+        :root {
+            --primary: #00e676;
+            --primary-hover: #00c853;
+            --dark: #0a0f1d;
+            --card-bg: #111a2e;
+            --card-border: #1d2b45;
+            --text: #ffffff;
+            --text-dim: #8e9bb0;
+            --accent: #00b0ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px 10px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .badge-supplier {
+            background-color: var(--primary);
+            color: #000;
+            font-weight: bold;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 8px;
+        }
+
+        /* Lista / Grilla de Mayorista */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .pkg-card {
+            background: #090e18;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .pkg-card:hover {
+            border-color: var(--primary);
+        }
+
+        .pkg-card.selected {
+            border: 2px solid var(--primary);
+            background: #0f2720;
+        }
+
+        .pkg-title {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .pkg-bonus {
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .pkg-price {
+            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid var(--card-border);
+            background-color: #090e18;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .summary-box {
+            background-color: #090e18;
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .summary-box p {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .total-price {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 6px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+        }
+
+        .bank-info {
+            background: #090e18;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px dashed var(--card-border);
+            font-size: 0.88rem;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge-supplier">Portal Oficial de Distribuidores</span>
+        <h1>PROVEEDOR FREE FIRE</h1>
+        <div class="subtitle">Precios Exclusivos Mayoristas (MXN)</div>
+    </header>
+
+    <div class="card">
+        <h2>1. Selecciona Paquete de Mayoreo</h2>
+        
+        <div class="packages-grid">
+            <div class="pkg-card" onclick="selectPackage(this, '110 Diamantes', 13.50)">
+                <div class="pkg-title">💎 110 Diamantes</div>
+                <div class="pkg-bonus">&nbsp;</div>
+                <div class="pkg-price">$13.50 MXN</div>
+            </div>
+            <div class="pkg-card" onclick="selectPackage(this, '310 + 31 Diamantes', 40.00)">
+                <div class="pkg-title">💎 310 Diamantes</div>
+                <div class="pkg-bonus">+31 Extra</div>
+                <div class="pkg-price">$40.00 MXN</div>
+            </div>
+            <div class="pkg-card" onclick="selectPackage(this, '520 + 52 Diamantes', 67.00)">
+                <div class="pkg-title">💎 520 Diamantes</div>
+                <div class="pkg-bonus">+52 Extra</div>
+                <div class="pkg-price">$67.00 MXN</div>
+            </div>
+            <div class="pkg-card" onclick="selectPackage(this, '1060 + 106 Diamantes', 125.00)">
+                <div class="pkg-title">💎 1060 Diamantes</div>
+                <div class="pkg-bonus">+106 Extra</div>
+                <div class="pkg-price">$125.00 MXN</div>
+            </div>
+            <div class="pkg-card" onclick="selectPackage(this, '2180 + 218 Diamantes', 245.00)">
+                <div class="pkg-title">💎 2180 Diamantes</div>
+                <div class="pkg-bonus">+218 Extra</div>
+                <div class="pkg-price">$245.00 MXN</div>
+            </div>
+            <div class="pkg-card" onclick="selectPackage(this, '5600 + 560 Diamantes', 625.53)">
+                <div class="pkg-title">💎 5600 Diamantes</div>
+                <div class="pkg-bonus">+560 Extra</div>
+                <div class="pkg-price">$625.53 MXN</div>
+            </div>
+        </div>
+
+        <h2>2. Datos del Cliente del Revendedor</h2>
+        <form id="resellerForm">
+            <label for="resellerName">Tu Nombre o Nombre de Tu Tienda:</label>
+            <input type="text" id="resellerName" placeholder="Ej. Tienda Rex / Juan Pérez" required>
+
+            <label for="playerID">ID del Jugador (Destino de la Recarga):</label>
+            <input type="number" id="playerID" placeholder="Ej. 987654321" required>
+
+            <div class="summary-box">
+                <p><span>Paquete Seleccionado:</span> <strong id="lblPackage">Ninguno</strong></p>
+                <p><span>Costo de Proveedor:</span> <strong id="lblPrice" class="total-price">$0.00 MXN</strong></p>
+            </div>
+
+            <div class="bank-info">
+                <strong>💳 Depósito/Transferencia SPEI Proveedor:</strong><br>
+                • <strong>Banco:</strong> BBVA<br>
+                • <strong>CLABE:</strong> 012180015469706233<br>
+                • <strong>Titular:</strong> Tu Nombre Aquí
+            </div>
+
+            <button type="submit" class="btn-whatsapp">⚡ Procesar Pedido Vía WhatsApp Directo</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const MI_WHATSAPP = "525570631464"; 
+    let selectedPkgData = null;
+
+    function selectPackage(element, packageName, price) {
+        document.querySelectorAll('.pkg-card').forEach(card => card.classList.remove('selected'));
+        element.classList.add('selected');
+        
+        selectedPkgData = { name: packageName, price: price };
+
+        document.getElementById('lblPackage').innerText = packageName;
+        document.getElementById('lblPrice').innerText = `$${price.toFixed(2)} MXN`;
+    }
+
+    document.getElementById('resellerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (!selectedPkgData) {
+            alert('Por favor, selecciona un paquete de diamantes.');
+            return;
+        }
+
+        const resellerName = document.getElementById('resellerName').value;
+        const playerID = document.getElementById('playerID').value;
+        const pkgName = selectedPkgData.name;
+        const pkgPrice = selectedPkgData.price.toFixed(2);
+
+        // Mensaje automatizado en formato de ORDEN DE PEDIDO MAYORISTA
+        const mensajeWA = `📦 *PEDIDO DE REVENDEDOR / MAYORISTA* 📦%0A%0A` +
+                          `👤 *Vendedor:* ${resellerName}%0A` +
+                          `🎮 *ID Jugador Destino:* ${playerID}%0A` +
+                          `💎 *Paquete Solicitado:* ${pkgName}%0A` +
+                          `💰 *Costo Total a Pagar:* $${pkgPrice} MXN%0A%0A` +
+                          ` Adjunto captura de transferencia para abonar/descontar de mi saldo.`;
+
+        // Abrir WhatsApp automáticamente con el texto formateado listo para enviar
+        window.open(`https://wa.me/${MI_WHATSAPP}?text=${mensajeWA}`, '_blank');
+    });
+</script>
+</body>
+</html>
+
